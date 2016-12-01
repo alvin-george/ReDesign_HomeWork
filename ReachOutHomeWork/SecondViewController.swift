@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SecondViewController.swift
 //  ReachOutHomeWork
 //
 //  Created by Alvin George on 11/29/16.
@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegate {
-
+class SecondViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var workOrderDetailTableView: UITableView!
 
     //CustomCells
@@ -22,11 +21,14 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         return "\(NSDate().timeIntervalSince1970 * 1000)"
     }
     var selectedIndexpath =   NSIndexPath(forRow: 0, inSection: 0)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.workOrderDetailTableView.estimatedRowHeight = 600.0
+        self.workOrderDetailTableView.rowHeight = UITableViewAutomaticDimension
 
     }
+    
     //MARK:- TableView DataSource and Delegate
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -57,9 +59,32 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         }
         else if (indexPath.section == 5 ){
             //organization Title Cell
-            self.workOrderDetailTableView.rowHeight =  180
+            self.workOrderDetailTableView.rowHeight =  90
         }
-
+        else if (indexPath.section == 6 ){
+            //organization Title Cell
+            self.workOrderDetailTableView.rowHeight =  UITableViewAutomaticDimension
+        }
+        else if (indexPath.section == 7 ){
+            //organization Title Cell
+            self.workOrderDetailTableView.rowHeight =  70
+        }
+        else if (indexPath.section == 8 ){
+            //organization Title Cell
+            self.workOrderDetailTableView.rowHeight =  UITableViewAutomaticDimension
+        }
+        else if (indexPath.section == 9 ){
+            //organization Title Cell
+            self.workOrderDetailTableView.rowHeight =  70
+        }
+        else if (indexPath.section == 10 ){
+            //organization Title Cell
+            self.workOrderDetailTableView.rowHeight =  60
+        }
+        else if (indexPath.section == 11 ){
+            //organization Title Cell
+            self.workOrderDetailTableView.rowHeight =  140
+        }
         else{
             //self.workOrderDetailTableView.rowHeight =  UITableViewAutomaticDimension
         }
@@ -68,7 +93,7 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 
-        return 6
+        return 12
 
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,7 +116,22 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         if(section == 5){
             self.totalNumberOfRows = 1
         }
-        if(section == 5){
+        if(section == 6){
+            self.totalNumberOfRows = 1
+        }
+        if(section == 7){
+            self.totalNumberOfRows = 1
+        }
+        if(section == 8){
+            self.totalNumberOfRows = 1
+        }
+        if(section == 9){
+            self.totalNumberOfRows = 2
+        }
+        if(section == 10){
+            self.totalNumberOfRows = 3
+        }
+        if(section == 11){
             self.totalNumberOfRows = 1
         }
 
@@ -124,8 +164,6 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
             cell.locationDistanceLabel.text = "Distance not available"
 
             cell.workOrderDetailMapView.frame.size.height = UIScreen.mainScreen().bounds.size.height/2.5
-            // cell.mapViewHeightConstraint.constant = UIScreen.mainScreen().bounds.size.height/2.5
-
             return cell
         }
         else if(indexPath.section == 2)
@@ -169,30 +207,87 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
 
             var cell :WorkOrderDateCell
             cell =  tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! WorkOrderDateCell
+            return cell
+        }
+        else if (indexPath.section == 6)
+        {
+            CellIdentifier = "workOrderInstructionCellID"
 
+            var cell :WorkOrderInstructionsCell
+            cell =  tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! WorkOrderInstructionsCell
+            return cell
+        }
+        else if (indexPath.section == 7)
+        {
+            CellIdentifier = "workOrderPackageTItleCell"
+
+            var cell :WorkOrderPackageTitleCell
+            cell =  tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! WorkOrderPackageTitleCell
+            return cell
+        }
+        else if (indexPath.section == 8)
+        {
+            CellIdentifier = "workOrderCheckInOutCell"
+
+            var cell :WorkOrderCheckInOutCell
+            cell =  tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! WorkOrderCheckInOutCell
+            return cell
+        }
+        else if (indexPath.section == 9)
+        {
+            CellIdentifier = "workOrderFormsCell"
+
+            var cell :WorkOrderFormsCell
+            cell =  tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! WorkOrderFormsCell
+            return cell
+        }
+        else if (indexPath.section == 10)
+        {
+            CellIdentifier = "workOrderAddEstimateCell"
+
+            var cell :WorkOrderAddEstimateCell
+            cell =  tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! WorkOrderAddEstimateCell
+            
+            cell.addItemView.layer.masksToBounds =  true
+            cell.addItemView.layer.cornerRadius = 5.0
+
+            return cell
+        }
+        else if (indexPath.section == 11)
+        {
+            CellIdentifier = "workOrderCustomerSignatureCell"
+
+            var cell :WorkOrderCustomerSignatureCell
+            cell =  tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as! WorkOrderCustomerSignatureCell
             return cell
         }
 
         else {
-
+            
             let cell: UITableViewCell = UITableViewCell()
             return cell
         }
-
+        
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
     }
-    @IBAction func downloadInstructionsClicked(sender: AnyObject) {
 
-        self.performSegueWithIdentifier("segueToSecondVC", sender: self)
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-}
 
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
